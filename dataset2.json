@@ -1,0 +1,110 @@
+[
+    {
+        "appid": "2805630",
+        "release": "2024-02-24",
+        "title": "BotMobile",
+        "price": 1173,
+        "sentiment": "Positive",
+        "reviews": "10",
+        "percentage": "100",
+        "tags": [
+            "Action",
+            "Action-Adventure",
+            "Adventure",
+            "Casual",
+            "Choose Your Own Adventure",
+            "Combat Racing",
+            "Cute",
+            "Driving",
+            "Minimalist",
+            "Physics",
+            "Racing",
+            "Rhythm",
+            "Simulation",
+            "Singleplayer",
+            "Sports",
+            "Strategy",
+            "Third Person"
+        ],
+        "screenshots": [
+            "2805630_ss_02b69bffacf19807fb6202fb8167fad7e08eae77.1920x1080.jpg",
+            "2805630_ss_67edf620e44492c0110912c2a6672113011aa94c.1920x1080.jpg",
+            "2805630_ss_790259f92a9ba5f506a00eafc9efa4fb2dc9686d.1920x1080.jpg",
+            "2805630_ss_a25f2dcb34e2688eaa6c9a971c38a03dbdab18fb.1920x1080.jpg",
+            "2805630_ss_b8fb2eff1ddc2816f0ec744d467ab3dfe9d584e1.1920x1080.jpg",
+            "2805630_ss_c1a17e1b1ca267e911de2948f426b34b07cca172.1920x1080.jpg",
+            "2805630_ss_c96c5067160ab0a5eeb71142478872313ee4d234.1920x1080.jpg",
+            "2805630_ss_fc7976bb6906578e962c52d4952a5b4184351d1c.1920x1080.jpg"
+        ]
+    },
+    {
+        "appid": "2805610",
+        "release": "2024-02-24",
+        "title": "Just skill shooter 3: 2d edition",
+        "price": 199,
+        "sentiment": "Positive",
+        "reviews": "11",
+        "percentage": "90",
+        "tags": [
+            "2D",
+            "Action",
+            "Action RPG",
+            "Action-Adventure",
+            "Adventure",
+            "Arena Shooter",
+            "Casual",
+            "Colorful",
+            "Hero Shooter",
+            "Military",
+            "Pixel Graphics",
+            "RTS",
+            "Shooter",
+            "Simulation",
+            "Sports",
+            "Strategy",
+            "Survival",
+            "Tactical",
+            "Third-Person Shooter",
+            "Top-Down"
+        ],
+        "screenshots": [
+            "2805610_ss_21f5dfd4d369f1cefdd9d233f574a4758dba8793.1920x1080.jpg",
+            "2805610_ss_2f7441f3175b1109dd3d808108203bf6911a9e8d.1920x1080.jpg",
+            "2805610_ss_670b0cefb17f92f389b5dbbb919cf460e0a26efb.1920x1080.jpg",
+            "2805610_ss_94b0727d0f5ac99e5c90e617cb6a4d52b7dfd000.1920x1080.jpg",
+            "2805610_ss_c0262b5821edf071763551c0f09ee56bd83f77ac.1920x1080.jpg"
+        ]
+    },
+    {
+        "appid": "2816420",
+        "release": "2024-02-24",
+        "title": "Slime Drop",
+        "price": 199,
+        "sentiment": null,
+        "reviews": null,
+        "tags": [
+            "2D",
+            "Arcade",
+            "Casual",
+            "Clicker",
+            "Colorful",
+            "Cute",
+            "Family Friendly",
+            "Fantasy",
+            "Indie",
+            "Match 3",
+            "Physics",
+            "Pixel Graphics",
+            "Puzzle",
+            "Singleplayer",
+            "Strategy"
+        ],
+        "screenshots": [
+            "2816420_ss_649a6c5bb66b93bf7b0a384d412923618d08d508.1920x1080.jpg",
+            "2816420_ss_ba788592b8475704155f2685adc6c4de0f3f1161.1920x1080.jpg",
+            "2816420_ss_ba95008b29be21c3a02bfe74deeaec00158ef266.1920x1080.jpg",
+            "2816420_ss_d16260cc51bbd04f958d4ad45e466914dbe08db7.1920x1080.jpg",
+            "2816420_ss_fdaaaf7d658e7b0da6b7314f2587a6554f1bbe91.1920x1080.jpg"
+        ]
+    }
+]
