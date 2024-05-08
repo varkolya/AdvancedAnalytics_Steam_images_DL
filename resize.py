@@ -2,11 +2,11 @@ from PIL import Image
 import os
 
 # Define input and output directories
-input_dir = 'C:/Users/Beste/Desktop/AAB/images/images'
-output_dir = 'C:/Users/Beste/Desktop/AAB/images/images2'
+input_dir = 'C:/Users/Beste/Desktop/AAB/images-big'
+output_dir = 'C:/Users/Beste/Desktop/AAB/images'
 
 # Define the target size for resizing
-target_size = (640, 480)  # Specify the new dimensions
+target_size = (256, 256)  # Specify the new dimensions
 
 # Create the output directory if it doesn't exist
 if not os.path.exists(output_dir):
