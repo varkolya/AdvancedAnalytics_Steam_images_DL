@@ -9,33 +9,7 @@ from tqdm.auto import tqdm
 from model import CNNModel
 from datasets import train_loader, valid_loader
 from utils import save_model, save_plots
-
-# construct the argument parser
-parser = argparse.ArgumentParser()
-parser.add_argument('-e', '--epochs', type=int, default=20,
-    help='number of epochs to train our network for')
-args = vars(parser.parse_args())
-
-# learning_parameters 
-lr = 1e-3
-epochs = args['epochs']
-device = ('cuda' if torch.cuda.is_available() else 'cpu')
-print(f"Computation device: {device}\n")
-model = CNNModel().to(device)
-print(model)
-
-# total parameters and trainable parameters
-total_params = sum(p.numel() for p in model.parameters())
-print(f"{total_params:,} total parameters.")
-total_trainable_params = sum(
-    p.numel() for p in model.parameters() if p.requires_grad)
-print(f"{total_trainable_params:,} training parameters.")
-
-# optimizer
-optimizer = optim.Adam(model.parameters(), lr=lr)
-
-# loss function
-criterion = nn.CrossEntropyLoss()
+import torch.multiprocessing as mp
 
 # training
 def train(model, trainloader, optimizer, criterion):
@@ -96,27 +70,59 @@ def validate(model, testloader, criterion):
     epoch_acc = 100. * (valid_running_correct / len(testloader.dataset))
     return epoch_loss, epoch_acc
 
-# lists to keep track of losses and accuracies
-train_loss, valid_loss = [], []
-train_acc, valid_acc = [], []
-# start the training
-for epoch in range(epochs):
-    print(f"[INFO]: Epoch {epoch+1} of {epochs}")
-    train_epoch_loss, train_epoch_acc = train(model, train_loader, 
-                                              optimizer, criterion)
-    valid_epoch_loss, valid_epoch_acc = validate(model, valid_loader,  
-                                                 criterion)
-    train_loss.append(train_epoch_loss)
-    valid_loss.append(valid_epoch_loss)
-    train_acc.append(train_epoch_acc)
-    valid_acc.append(valid_epoch_acc)
-    print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
-    print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
-    print('-'*50)
-    time.sleep(5)
+
+
+if __name__ == '__main__':
+    mp.freeze_support()
+    # construct the argument parser
+    parser = argparse.ArgumentParser()
+    parser.add_argument('-e', '--epochs', type=int, default=20,
+        help='number of epochs to train our network for')
+    args = vars(parser.parse_args())
+
+    # learning_parameters 
+    lr = 1e-3
+    epochs = args['epochs']
+    device = ('cuda' if torch.cuda.is_available() else 'cpu')
+    print(f"Computation device: {device}\n")
+    model = CNNModel().to(device)
+    print(model)
+
+    # total parameters and trainable parameters
+    total_params = sum(p.numel() for p in model.parameters())
+    print(f"{total_params:,} total parameters.")
+    total_trainable_params = sum(
+        p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"{total_trainable_params:,} training parameters.")
+
+    # optimizer
+    optimizer = optim.Adam(model.parameters(), lr=lr)
+
+    # loss function
+    criterion = nn.CrossEntropyLoss()
     
-# save the trained model weights
-save_model(epochs, model, optimizer, criterion)
-# save the loss and accuracy plots
-save_plots(train_acc, valid_acc, train_loss, valid_loss)
-print('TRAINING COMPLETE')
+
+    # lists to keep track of losses and accuracies
+    train_loss, valid_loss = [], []
+    train_acc, valid_acc = [], []
+    # start the training
+    for epoch in range(epochs):
+        print(f"[INFO]: Epoch {epoch+1} of {epochs}")
+        train_epoch_loss, train_epoch_acc = train(model, train_loader, 
+                                                optimizer, criterion)
+        valid_epoch_loss, valid_epoch_acc = validate(model, valid_loader,  
+                                                    criterion)
+        train_loss.append(train_epoch_loss)
+        valid_loss.append(valid_epoch_loss)
+        train_acc.append(train_epoch_acc)
+        valid_acc.append(valid_epoch_acc)
+        print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
+        print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
+        print('-'*50)
+        time.sleep(5)
+        
+    # save the trained model weights
+    save_model(epochs, model, optimizer, criterion)
+    # save the loss and accuracy plots
+    save_plots(train_acc, valid_acc, train_loss, valid_loss)
+    print('TRAINING COMPLETE')
