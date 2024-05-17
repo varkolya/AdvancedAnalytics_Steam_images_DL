@@ -82,10 +82,11 @@ if __name__ == '__main__':
 
     # learning_parameters 
     lr = 1e-3
+    num_classes = 50 # to check
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
     print(f"Computation device: {device}\n")
-    model = CNNModel().to(device)
+    model = CNNModel(num_classes = num_classes).to(device)
     print(model)
 
     # total parameters and trainable parameters
