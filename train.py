@@ -82,7 +82,7 @@ if __name__ == '__main__':
 
     # learning_parameters 
     lr = 1e-3
-    num_classes = 10
+    num_classes = 50 # to check
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
     print(f"Computation device: {device}\n")
@@ -119,7 +119,7 @@ if __name__ == '__main__':
         valid_acc.append(valid_epoch_acc)
         print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
         print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
-        print('-'*10)
+        print('-'*50)
         time.sleep(5)
         
     # save the trained model weights

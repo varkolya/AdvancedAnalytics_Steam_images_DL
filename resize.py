@@ -2,8 +2,13 @@ from PIL import Image
 import os
 
 # Define input and output directories
+<<<<<<< HEAD
+input_dir = 'C:/Users/nicol/OneDrive - KU Leuven/Desktop/python/Advanced Analytics in Business/2/images'
+output_dir = 'C:/Users/nicol/OneDrive - KU Leuven/Desktop/python/Advanced Analytics in Business/2/images2'
+=======
 input_dir = 'C:/Users/Beste/Desktop/AAB/images-big'
 output_dir = 'C:/Users/Beste/Desktop/AAB/images'
+>>>>>>> 949e9077c93cb15850514220030b89cc7b6e57d0
 
 # Define the target size for resizing
 target_size = (256, 256)  # Specify the new dimensions
