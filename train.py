@@ -6,6 +6,7 @@ import time
 
 from tqdm.auto import tqdm
 
+from torch.optim.lr_scheduler import ReduceLROnPlateau
 import torchvision.datasets as datasets
 from torch.utils.data import DataLoader
 from model import CNNModel
@@ -100,12 +101,12 @@ if __name__ == '__main__':
     mp.freeze_support()
     # construct the argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--epochs', type=int, default=30,
+    parser.add_argument('-e', '--epochs', type=int, default=45,
         help='number of epochs to train our network for')
     args = vars(parser.parse_args())
 
     # learning_parameters 
-    lr = 0.01
+    lr = 0.005
     num_classes = 8
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
@@ -124,11 +125,12 @@ if __name__ == '__main__':
         p.numel() for p in model.parameters() if p.requires_grad)
     print(f"{total_trainable_params:,} training parameters.")
 
-    # optimizer
-    optimizer = optim.Adam(model.parameters(), lr=lr)
+    # Define your optimizer and scheduler
+    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
+    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2, verbose=True)
 
     # loss function
-    criterion = nn.CrossEntropyLoss()
+    criterion = nn.CrossEntropyLoss(weight=class_weights)
     
     # lists to keep track of losses and accuracies
     train_loss, valid_loss = [], []
@@ -145,6 +147,7 @@ if __name__ == '__main__':
         valid_loss.append(valid_epoch_loss)
         train_acc.append(train_epoch_acc)
         valid_acc.append(valid_epoch_acc)
+        scheduler.step(valid_epoch_loss)
         print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
         print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
         print('-'*50)
