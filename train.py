@@ -6,11 +6,8 @@ import time
 
 from tqdm.auto import tqdm
 
-from torch.optim.lr_scheduler import ReduceLROnPlateau
-import torchvision.datasets as datasets
-from torch.utils.data import DataLoader
-from model import CNNModel
-from datasets import transform
+from model2 import CNNModel
+from datasets import train_loader, valid_loader
 from utils import save_model, save_plots
 import torch.multiprocessing as mp
 
@@ -62,7 +59,6 @@ def validate(model, testloader, criterion):
             # forward pass
             outputs = model(image)
             # calculate the loss
-            loss = criterion(outputs, labels)
             valid_running_loss += loss.item()
             # calculate the accuracy
             _, preds = torch.max(outputs.data, 1)
@@ -73,50 +69,24 @@ def validate(model, testloader, criterion):
     epoch_acc = 100. * (valid_running_correct / len(testloader.dataset))
     return epoch_loss, epoch_acc
 
-# training dataset
-train_dataset = datasets.ImageFolder(
-    root='train',
-    transform=transform
-)
 
-# validation dataset
-valid_dataset = datasets.ImageFolder(
-    root='valid',
-    transform=transform
-)
-
-# training data loaders
-train_loader = DataLoader(
-    train_dataset, batch_size=64, shuffle=True,
-    num_workers=4, pin_memory=True
-)
-
-# validation data loaders
-valid_loader = DataLoader(
-    valid_dataset, batch_size=64, shuffle=False,
-    num_workers=4, pin_memory=True
-)
 
 if __name__ == '__main__':
     mp.freeze_support()
     # construct the argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--epochs', type=int, default=45,
+    parser.add_argument('-e', '--epochs', type=int, default=20,
         help='number of epochs to train our network for')
     args = vars(parser.parse_args())
 
     # learning_parameters 
-    lr = 0.005
+    lr = 1e-3
     num_classes = 8
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
     print(f"Computation device: {device}\n")
-    model = CNNModel().to(device)
+    model = CNNModel(num_classes).to(device)
     print(model)
-
-    # Define weights for classes
-    weights = [0.7, 0.01, 0.6, 0.001, 0.1, 1.4, 0.0001, 1.1]
-    class_weights = torch.tensor(weights, dtype=torch.float).to(device)
 
     # total parameters and trainable parameters
     total_params = sum(p.numel() for p in model.parameters())
@@ -125,17 +95,16 @@ if __name__ == '__main__':
         p.numel() for p in model.parameters() if p.requires_grad)
     print(f"{total_trainable_params:,} training parameters.")
 
-    # Define your optimizer and scheduler
-    optimizer = torch.optim.Adam(model.parameters(), lr=0.001)
-    scheduler = ReduceLROnPlateau(optimizer, mode='min', factor=0.5, patience=2, verbose=True)
+    # optimizer
+    optimizer = optim.Adam(model.parameters(), lr=lr)
 
     # loss function
-    criterion = nn.CrossEntropyLoss(weight=class_weights)
+    criterion = nn.CrossEntropyLoss()
     
+
     # lists to keep track of losses and accuracies
     train_loss, valid_loss = [], []
     train_acc, valid_acc = [], []
-
     # start the training
     for epoch in range(epochs):
         print(f"[INFO]: Epoch {epoch+1} of {epochs}")
@@ -147,7 +116,6 @@ if __name__ == '__main__':
         valid_loss.append(valid_epoch_loss)
         train_acc.append(train_epoch_acc)
         valid_acc.append(valid_epoch_acc)
-        scheduler.step(valid_epoch_loss)
         print(f"Training loss: {train_epoch_loss:.3f}, training acc: {train_epoch_acc:.3f}")
         print(f"Validation loss: {valid_epoch_loss:.3f}, validation acc: {valid_epoch_acc:.3f}")
         print('-'*50)
