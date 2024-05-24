@@ -1,5 +1,7 @@
 import torch.nn as nn
 import torch.nn.functional as F
+from torchsummary import summary
+
 
 class CNNModel(nn.Module):
     def __init__(self, num_classes):
@@ -31,7 +33,7 @@ class CNNModel(nn.Module):
         self.fc1 = nn.Linear(512, 1024)
         self.fc2 = nn.Linear(1024, 1024)
         self.fc3 = nn.Linear(1024, num_classes)
-    
+
     def forward(self, x):
         x = self.pool(F.relu(self.bn1(self.conv1(x))))
         x = self.pool(F.relu(self.bn2(self.conv2(x))))

@@ -6,7 +6,7 @@ import time
 
 from tqdm.auto import tqdm
 
-from model import CNNModel
+from model2 import CNNModel
 from datasets import train_loader, valid_loader
 from utils import save_model, save_plots
 import torch.multiprocessing as mp
@@ -76,17 +76,17 @@ if __name__ == '__main__':
     mp.freeze_support()
     # construct the argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--epochs', type=int, default=20,
+    parser.add_argument('-e', '--epochs', type=int, default=10,
         help='number of epochs to train our network for')
     args = vars(parser.parse_args())
 
     # learning_parameters 
-    lr = 1e-3
-    num_classes = 7
+    lr = 0.001
+    num_classes = 3
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
     print(f"Computation device: {device}\n")
-    model = CNNModel(num_classes).to(device)
+    model = CNNModel().to(device)
     print(model)
 
     # total parameters and trainable parameters
