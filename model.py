@@ -47,6 +47,6 @@ class CNNModel(nn.Module):
         x = F.relu(self.fc1(x))
         x = self.dropout(x)
         x = F.relu(self.fc2(x))
-        c = self.dropout(x)
+        x = self.dropout(x)
         x = self.fc3(x)
         return x

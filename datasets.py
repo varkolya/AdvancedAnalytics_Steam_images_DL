@@ -16,7 +16,7 @@ import torch.nn.functional as F # import convolution functions like Relu
 import torch.optim as optim # optimzer
 
 # Load the JSON data into a python dictionary
-train_data = pd.read_json("train_data.json")
+train_data = pd.read_json("train_data_clean.json")
 
 # Clean out the games that have no reviews
 train_df = train_data.dropna(subset=["sentiment"])
@@ -25,7 +25,7 @@ train_df = train_data.dropna(subset=["sentiment"])
 train_df_expanded=train_df.explode("screenshots", ignore_index=True)
 
 # Load the JSON data into a python dictionary
-valid_data = pd.read_json("valid_data.json")
+valid_data = pd.read_json("valid_data_clean.json")
 
 # Clean out the games that have no reviews
 valid_df = valid_data.dropna(subset=["sentiment"])

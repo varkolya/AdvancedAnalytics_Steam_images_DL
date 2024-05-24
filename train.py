@@ -6,7 +6,7 @@ import time
 
 from tqdm.auto import tqdm
 
-from model2 import CNNModel
+from model import CNNModel
 from datasets import train_loader, valid_loader
 from utils import save_model, save_plots
 import torch.multiprocessing as mp
@@ -59,6 +59,7 @@ def validate(model, testloader, criterion):
             # forward pass
             outputs = model(image)
             # calculate the loss
+            loss = criterion(outputs, labels)
             valid_running_loss += loss.item()
             # calculate the accuracy
             _, preds = torch.max(outputs.data, 1)
@@ -81,7 +82,7 @@ if __name__ == '__main__':
 
     # learning_parameters 
     lr = 1e-3
-    num_classes = 8
+    num_classes = 7
     epochs = args['epochs']
     device = ('cuda')# if torch.cuda.is_available() else 'cpu')
     print(f"Computation device: {device}\n")
