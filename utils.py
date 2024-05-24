@@ -13,7 +13,7 @@ def save_model(epochs, model, optimizer, criterion):
                 'model_state_dict': model.state_dict(),
                 'optimizer_state_dict': optimizer.state_dict(),
                 'loss': criterion,
-                }, 'C:/Users/nicol/OneDrive - KU Leuven/Desktop/python/Advanced Analytics in Business/2/model.pth')
+                }, 'C:/Users/Beste/Documents/AdvancedAnalytics_Steam_images_DL/model.pth')
     
 def save_plots(train_acc, valid_acc, train_loss, valid_loss):
     """
@@ -32,7 +32,7 @@ def save_plots(train_acc, valid_acc, train_loss, valid_loss):
     plt.xlabel('Epochs')
     plt.ylabel('Accuracy')
     plt.legend()
-    plt.savefig('C:/Users/nicol/OneDrive - KU Leuven/Desktop/python/Advanced Analytics in Business/2/accuracy.png')
+    plt.savefig('C:/Users/Beste/Documents/AdvancedAnalytics_Steam_images_DL/accuracy.png')
     
     # loss plots
     plt.figure(figsize=(10, 7))
@@ -47,4 +47,4 @@ def save_plots(train_acc, valid_acc, train_loss, valid_loss):
     plt.xlabel('Epochs')
     plt.ylabel('Loss')
     plt.legend()
-    plt.savefig('C:/Users/nicol/OneDrive - KU Leuven/Desktop/python/Advanced Analytics in Business/2/loss.png')
+    plt.savefig('C:/Users/Beste/Documents/AdvancedAnalytics_Steam_images_DL/loss.png')

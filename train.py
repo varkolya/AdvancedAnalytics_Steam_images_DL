@@ -6,7 +6,7 @@ import time
 
 from tqdm.auto import tqdm
 
-from model2 import CNNModel
+from model4 import CNNModel
 from datasets import train_loader, valid_loader
 from utils import save_model, save_plots
 import torch.multiprocessing as mp
@@ -59,6 +59,7 @@ def validate(model, testloader, criterion):
             # forward pass
             outputs = model(image)
             # calculate the loss
+            loss = criterion(outputs, labels)
             valid_running_loss += loss.item()
             # calculate the accuracy
             _, preds = torch.max(outputs.data, 1)
@@ -75,7 +76,7 @@ if __name__ == '__main__':
     mp.freeze_support()
     # construct the argument parser
     parser = argparse.ArgumentParser()
-    parser.add_argument('-e', '--epochs', type=int, default=20,
+    parser.add_argument('-e', '--epochs', type=int, default=30,
         help='number of epochs to train our network for')
     args = vars(parser.parse_args())
 
